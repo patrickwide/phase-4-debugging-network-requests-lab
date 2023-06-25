@@ -60,14 +60,31 @@ developing your own process.
 
 ## Your Notes Here
 
-- Add a new toy when the toy form is submitted
+- Issue: Add a new toy when the toy form is submitted
 
-  - How I debugged:
+- Checked the terminal logs.
+- Added a `byebug` at the start of the `create` action in the `ToysController`.
+- Inspected the code and variables in the debugger to identify the problem.
+- Noticed a typo in calling the `Toy` model, which was causing an error.
+- Fixed the typo by changing `Toys.create` to `Toy.create`.
+- Tested the toy form submission again, and it worked successfully.
 
-- Update the number of likes for a toy
+- Issue: Update the number of likes for a toy
 
-  - How I debugged:
+- Checked the terminal logs.
+- Added a `byebug` at the start of the `update` action in the `ToysController`.
+- Inspected the code and variables in the debugger to identify the problem.
+- Found that the `id` parameter was not permitted in the `toy_params` method.
+- Modified the `toy_params` method to include `:id` in the permitted parameters.
+- Added `render json: toy, status: :ok` after the `toy.update(toy_params)` line to return the updated toy in the response.
+- Tested updating the number of likes for a toy, and it was successfully updated.
 
-- Donate a toy to Goodwill (and delete it from our database)
+- Issue: Donate a toy to Goodwill (and delete it from our database)
 
-  - How I debugged:
+- Examined the error message in the terminal logs.
+- Found that there was no `destroy` route defined to handle the toy deletion.
+- Added the `destroy` action in the `ToysController`.
+- In the `destroy` action, located the toy using `Toy.find_by(id: params[:id])`.
+- Called the `destroy` method on the toy to remove it from the database.
+- Set the response status to `:no_content` using `head :no_content`.
+- Tested deleting a toy, and it was successfully deleted from the database.
